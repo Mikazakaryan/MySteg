@@ -88,21 +88,21 @@ void MainWindow::encodeSlot(){
 }
 
 void MainWindow::audioFileBrowseSlot(){
-    QStringList temp;
-    temp = QFileDialog::getOpenFileNames(this, "Select an audio file to open...", "", "*.wav");
-    m_audioDir = temp[0];
+    QString temp = "/";
+    temp = QFileDialog::getOpenFileName(this, "Select an audio file to open...", "", "*.wav");
+    m_audioDir = temp;
 }
 
 void MainWindow::textFileBrowseSlot(){
-    QStringList temp;
-    temp = QFileDialog::getOpenFileNames(this, "Select a text file to open...", "", "*.txt");
-    m_textDir = temp[0];
+    QString temp = "/";
+    temp = QFileDialog::getOpenFileName(this, "Select a text file to open...", "", "*.txt");
+    m_textDir = temp;
 }
 
 void MainWindow::hashFileBrowseSlot(){
-    QStringList temp;
-    temp = QFileDialog::getOpenFileNames(this, "Select a hash file to open...", "", "*.txt");
-    m_hashDir = temp[0];
+    QString temp = "/";
+    temp = QFileDialog::getOpenFileName(this, "Select a hash file to open...", "", "*.txt");
+    m_hashDir = temp;
 }
 
 void MainWindow::encodingSlot(){
