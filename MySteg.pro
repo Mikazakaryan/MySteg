@@ -28,10 +28,12 @@ SOURCES += \
         mainwindow.cpp \
     enode.cpp \
     steg.cpp \
-    decode.cpp
+    decode.cpp \
+    aes.cpp
 
 HEADERS += \
         mainwindow.h \
     encode.h \
     steg.h \
-    decode.h
+    decode.h \
+    aes.h

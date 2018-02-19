@@ -10,7 +10,7 @@ Decode::Decode(QByteArray audioFileDir, QByteArray hash, QByteArray inputPasswor
     if(hashing(inputPassword, true) != password){
         status = "Wrong pass";
     }else{
-        decrypt(text);
+        decrypt(text, encKey);
         QByteArray textOutFileDir;
         makeDir(audioFileDir, textOutFileDir);
         setTextToFile(textOutFileDir, text);
@@ -83,8 +83,29 @@ QByteArray Decode::hashing(QByteArray text, bool isKey){
     }
 }
 
-void Decode::decrypt(QByteArray &text){
-
+void Decode::decrypt(QByteArray &text, QByteArray encKey){
+    QVector<QByteArray> in;
+    for (int i = 0; i < (text.size() / 16) + 1; ++i) {
+        QByteArray temp;
+        int n = 16;
+        if((1 + i) * n > text.size()){
+            n = text.size() - (i * n);
+        }
+        if(n != 0){
+            for (int j = 0; j < n; ++j) {
+                temp += text.at((i * 16) + j);
+            }
+            in.push_back(temp);
+        }
+    }
+    text = "";
+    AES decrypter;
+    decrypter.MakeKey(encKey);
+    foreach (QByteArray part, in) {
+        char dataOut[17] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+        decrypter.DefDecryptBlock(part.toStdString().data(), dataOut);
+        text += dataOut;
+    }
 }
 
 QByteArray Decode::extract(QByteArray audioFileDir){

@@ -7,6 +7,8 @@
 #include <QFile>
 #include <QTime>
 #include <steg.h>
+#include <aes.h>
+#include <QList>
 
 class Encode
 {
@@ -18,7 +20,7 @@ private:
     void keyGenerator(QByteArray &encKey);
     QByteArray getTextFromFile(QByteArray fileDir);
     QByteArray hashing(QByteArray text, bool isKey);
-    void encrypt(QByteArray &text);
+    void encrypt(QByteArray &text, QByteArray encKey);
     QByteArray prepareToHide(QByteArray text, QByteArray encKey, QByteArray password);
     void hide(QByteArray audioFileDir, QByteArray audioOutFileDir, QByteArray text);
     void makeDirs(QByteArray audioFileDir, QByteArray &audioOutFileDir, QByteArray &hashFileDir);

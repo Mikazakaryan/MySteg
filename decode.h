@@ -6,6 +6,8 @@
 #include <QTextStream>
 #include <QFile>
 #include <steg.h>
+#include <aes.h>
+#include <QList>
 
 class Decode
 {
@@ -15,7 +17,7 @@ private:
     QByteArray setTextToFile(QByteArray fileDir, QByteArray text);
     bool checkSum(QByteArray hash, QByteArray text);
     QByteArray hashing(QByteArray text, bool isKey);
-    void decrypt(QByteArray &text);
+    void decrypt(QByteArray &text, QByteArray encKey);
     QByteArray extract(QByteArray audioFileDir);
     void devider(QByteArray message, QByteArray &encKey, QByteArray &password, QByteArray &text);
     void makeDir(QByteArray audioFileDir, QByteArray &textOutFileDir);

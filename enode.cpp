@@ -8,7 +8,8 @@ Encode::Encode(QByteArray audioFileDir, QByteArray textFileDir, QByteArray passw
     makeDirs(audioFileDir, audioOutFileDir, hashFileDir);
     outHash(text, hashFileDir);
     keyGenerator(encKey);
-    encrypt(text);
+    encKey = hashing(encKey, true);
+    encrypt(text, encKey);
     QByteArray readyText = prepareToHide(text, encKey, password);
     hide(audioFileDir, audioOutFileDir, readyText);
     status = "done";
@@ -65,12 +66,33 @@ QByteArray Encode::hashing(QByteArray text, bool isKey){
     }
 }
 
-void Encode::encrypt(QByteArray &text){
-
+void Encode::encrypt(QByteArray &text, QByteArray encKey){
+    QVector<QByteArray> in;
+    for (int i = 0; i < (text.size() / 16) + 1; ++i) {
+        QByteArray temp;
+        int n = 16;
+        if((1 + i) * n > text.size()){
+            n = text.size() - (i * n);
+        }
+        if(n != 0){
+            for (int j = 0; j < n; ++j) {
+                temp += text.at((i * 16) + j);
+            }
+            in.push_back(temp);
+        }
+    }
+    text = "";
+    AES encrypter;
+    encrypter.MakeKey(encKey);
+    char dataOut[17] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+    foreach (QByteArray part, in) {
+        encrypter.DefEncryptBlock(part.toStdString().data(), dataOut);
+        text += QByteArray::fromStdString(dataOut);
+    }
 }
 
 QByteArray Encode::prepareToHide(QByteArray text, QByteArray encKey, QByteArray password){
-    return hashing(password, true) + hashing(encKey, true) + text;
+    return hashing(password, true) + encKey + text;
 }
 
 void Encode::hide(QByteArray audioFileDir, QByteArray audioOutFileDir, QByteArray text){
