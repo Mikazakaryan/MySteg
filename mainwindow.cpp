@@ -14,10 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_header->setAlignment(Qt::AlignHCenter);
     m_header->setFont(m_font);
 
-    m_encode->setText("Encode");
+    m_encode->setText("Hide");
     m_encode->setFont(m_font);
 
-    m_decode->setText("Decode");
+    m_decode->setText("Extract");
     m_decode->setFont(m_font);
 
     m_exit->setText("Exit");
@@ -88,21 +88,36 @@ void MainWindow::encodeSlot(){
 }
 
 void MainWindow::audioFileBrowseSlot(){
-    QString temp = "/";
+    QString temp = "";
     temp = QFileDialog::getOpenFileName(this, "Select an audio file to open...", "", "*.wav");
     m_audioDir = temp;
+    if(m_audioDir != ""){
+        m_audioFileBrowse->setStyleSheet("background-color: green");
+    }else{
+        m_audioFileBrowse->setStyleSheet("background-color: red");
+    }
 }
 
 void MainWindow::textFileBrowseSlot(){
-    QString temp = "/";
+    QString temp = "";
     temp = QFileDialog::getOpenFileName(this, "Select a text file to open...", "", "*.txt");
     m_textDir = temp;
+    if(m_textDir != ""){
+        m_textFileBrowse->setStyleSheet("background-color: green");
+    }else{
+        m_textFileBrowse->setStyleSheet("background-color: red");
+    }
 }
 
 void MainWindow::hashFileBrowseSlot(){
-    QString temp = "/";
+    QString temp = "";
     temp = QFileDialog::getOpenFileName(this, "Select a hash file to open...", "", "*.txt");
     m_hashDir = temp;
+    if(m_hashDir != ""){
+        m_hashFileBrowse->setStyleSheet("background-color: green");
+    }else{
+        m_hashFileBrowse->setStyleSheet("background-color: red");
+    }
 }
 
 void MainWindow::encodingSlot(){
