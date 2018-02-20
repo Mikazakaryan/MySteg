@@ -92,7 +92,7 @@ void Encode::encrypt(QByteArray &text, QByteArray encKey){
 }
 
 QByteArray Encode::prepareToHide(QByteArray text, QByteArray encKey, QByteArray password){
-    return hashing(password, true) + encKey + text;
+    return "hided|" + hashing(password, true) + encKey + text;
 }
 
 void Encode::hide(QByteArray audioFileDir, QByteArray audioOutFileDir, QByteArray text){

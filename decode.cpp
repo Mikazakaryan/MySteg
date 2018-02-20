@@ -6,18 +6,23 @@ Decode::Decode(QByteArray audioFileDir, QByteArray hash, QByteArray inputPasswor
     QByteArray text;
     QByteArray encKey;
     QByteArray password;
-    devider(message, encKey, password, text);
-    if(hashing(inputPassword, true) != password){
-        status = "Wrong pass";
+    QByteArray flag = message.split('|')[0];
+    if(flag != "hided"){
+        status = "Empty Audio File";
     }else{
-        decrypt(text, encKey);
-        QByteArray textOutFileDir;
-        makeDir(audioFileDir, textOutFileDir);
-        setTextToFile(textOutFileDir, text);
-        if(!checkSum(hash, text)){
-            status = "Done, but hashes aint same";
+        devider(message, encKey, password, text);
+        if(hashing(inputPassword, true) != password){
+            status = "Wrong pass";
         }else{
-            status = "Done";
+            decrypt(text, encKey);
+            QByteArray textOutFileDir;
+            makeDir(audioFileDir, textOutFileDir);
+            setTextToFile(textOutFileDir, text);
+            if(!checkSum(hash, text)){
+                status = "Done, but hashes aint same";
+            }else{
+                status = "Done";
+            }
         }
     }
 }
@@ -44,6 +49,7 @@ bool Decode::checkSum(QByteArray hashFile, QByteArray text){
 }
 
 void Decode::devider(QByteArray message, QByteArray &encKey, QByteArray &password, QByteArray &text){
+    message.remove(0, 6);
     for (int i = 0; i < 32; ++i) {
         password.push_back(message[i]);
         encKey.push_back(message.at(i + 32));
