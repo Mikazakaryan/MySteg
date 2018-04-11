@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_font.setPixelSize(20);
 
-    m_header->setText("this is header you piece of shit");
+    m_header->setText("Welcome to MySteg");
     m_header->setAlignment(Qt::AlignHCenter);
     m_header->setFont(m_font);
 
@@ -39,7 +39,7 @@ void MainWindow::encodeSlot(){
     qDeleteAll(m_window->children());
     setCentralWidget(m_window);
 
-    m_status->setText("this is status ffs");
+    m_status->setText("Go ahead");
     m_status->setFont(m_font);
 
     m_status->setAlignment(Qt::AlignHCenter);
@@ -58,7 +58,7 @@ void MainWindow::encodeSlot(){
     m_textFileLine->addWidget(m_textFileDir);
     m_textFileLine->addWidget(m_textFileBrowse);
 
-    m_encodeButton->setText("Encode");
+    m_encodeButton->setText("Hide");
 
     m_passwordWidget->setLayout(m_passwordLine);
 
@@ -183,7 +183,7 @@ void MainWindow::decodeSlot(){
     m_hashFileLine->addWidget(m_hashFileDir);
     m_hashFileLine->addWidget(m_hashFileBrowse);
 
-    m_decodeButton->setText("Decode");
+    m_decodeButton->setText("Extract");
 
     m_passwordWidget->setLayout(m_passwordLine);
 

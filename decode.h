@@ -14,7 +14,7 @@ class Decode
 public:
     Decode(QByteArray audioFileDir, QByteArray hash, QByteArray inputPassword, QByteArray &status);
 private:
-    QByteArray setTextToFile(QByteArray fileDir, QByteArray text);
+    void setTextToFile(QByteArray fileDir, QByteArray text);
     bool checkSum(QByteArray hash, QByteArray text);
     QByteArray hashing(QByteArray text, bool isKey);
     void decrypt(QByteArray &text, QByteArray encKey);

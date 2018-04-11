@@ -72,7 +72,8 @@ void Decode::makeDir(QByteArray audioFileDir, QByteArray &textOutFileDir){
     textOutFileDir = dir + "out.txt";
 }
 
-QByteArray Decode::setTextToFile(QByteArray fileDir, QByteArray text){
+
+void Decode::setTextToFile(QByteArray fileDir, QByteArray text){
     QFile file(fileDir);
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream stream(&file);
@@ -80,7 +81,6 @@ QByteArray Decode::setTextToFile(QByteArray fileDir, QByteArray text){
     }
    file.close();
 }
-
 QByteArray Decode::hashing(QByteArray text, bool isKey){
     if(isKey){
         return QCryptographicHash::hash(text, QCryptographicHash::Sha256);
