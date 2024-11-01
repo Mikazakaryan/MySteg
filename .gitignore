@@ -20,3 +20,7 @@ MySteg.app
 build/
 debug/
 release/
+
+# Ignore temporary or sensitive files
+*.txt
+*.wav

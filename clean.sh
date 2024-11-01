@@ -23,4 +23,9 @@ rm -rf build/
 rm -rf debug/
 rm -rf release/
 
+# Remove specific generated files
+rm -f out.txt
+rm -f out.wav
+rm -f hash.txt
+
 echo "Cleaned all build artifacts."
