@@ -1,0 +1,22 @@
+# Ignore Qt build files
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+
+# Qt-specific files
+moc_*
+*.qmake.stash
+
+# Ignore Makefile and build configuration files
+Makefile
+*.pro.user
+
+# Ignore the application bundle
+MySteg.app
+
+# Ignore other temporary or build-related files
+build/
+debug/
+release/
